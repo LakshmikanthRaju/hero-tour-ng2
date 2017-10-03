@@ -18,6 +18,7 @@ import { HeroService } from './hero.service';
       <input [(ngModel)]="hero.name" placeholder="name" />
     </div>
     <button (click)="goBack()">Back</button>
+    <button (click)="save()">Save</button>
   </div>
   `,
   styleUrls: ['./hero-detail.component.css']
@@ -34,6 +35,10 @@ export class HeroDetailComponent implements OnInit {
     this.route.paramMap
       .switchMap((params:ParamMap) => this.heroService.getHero(+params.get('id')))
       .subscribe(hero => this.hero = hero);
+  }
+
+  save():void {
+    this.heroService.update(this.hero).then(() => this.goBack());
   }
 
   goBack(): void {
